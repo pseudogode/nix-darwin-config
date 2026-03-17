@@ -36,7 +36,6 @@
             battery-toolkit
             appflowy
             vlc-bin
-            git
           ];
 
           programs.zsh.enable = true;
