@@ -19,22 +19,24 @@
         {
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
-          environment.systemPackages = [
-            pkgs.neovim
-            pkgs.brave
-            # `shell = {program = "/run/current-system/sw/bin/zsh"}` in configuration file of alacritty ~/.config/alacritty/alacritty.toml
+          environment.systemPackages = with pkgs; [
+            neovim
+            brave
+            # 
+            #`shell = {program = "/run/current-system/sw/bin/zsh"}` in configuration file of alacritty ~/.config/alacritty/alacritty.toml
             # alacritty migrate
-            pkgs.vscodium
-            pkgs.alacritty
-            pkgs.tmux
-            pkgs.qbittorrent
-            pkgs.podman
-            pkgs.podman-compose
-            pkgs.battery-toolkit
-            pkgs.appflowy
-            pkgs.vlc-bin
-            pkgs.git
-            pkgs.nixfmt
+            alacritty
+            #
+            vscodium
+            nixfmt
+            tmux
+            qbittorrent
+            podman
+            podman-compose
+            battery-toolkit
+            appflowy
+            vlc-bin
+            git
           ];
 
           programs.zsh.enable = true;
@@ -49,7 +51,7 @@
           system.defaults.dock = {
             autohide = true;
             showhidden = true;
-            tilesize = 48;
+            tilesize = 42;
           };
 
           system.defaults.controlcenter = {
