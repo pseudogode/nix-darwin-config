@@ -17,12 +17,14 @@
       configuration =
         { pkgs, ... }:
         {
+          nixpkgs.config.allowUnfree = true;
+
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages = with pkgs; [
             neovim
             brave
-            # 
+            #
             #`shell = {program = "/run/current-system/sw/bin/zsh"}` in configuration file of alacritty ~/.config/alacritty/alacritty.toml
             # alacritty migrate
             alacritty
@@ -36,6 +38,7 @@
             battery-toolkit
             appflowy
             vlc-bin
+            slack
           ];
 
           programs.zsh.enable = true;
@@ -82,6 +85,17 @@
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
+
+          launchd.user.agents.battery-toolkit = {
+            serviceConfig = {
+              RunAtLoad = true;
+              KeepAlive = false;
+            };
+
+            script = ''
+              open -a "Battery Toolkit"
+            '';
+          };
         };
     in
     {
