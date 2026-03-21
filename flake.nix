@@ -46,7 +46,9 @@
           system.primaryUser = "pseudogode";
 
           programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_macpcpc_host\n  IdentitiesOnly yes";
-
+          
+          system.startup.chime = false;
+          
           system.defaults = {
             dock = {
               autohide = true;
@@ -58,13 +60,11 @@
                 "/Applications/Nix Apps/AppFlowy.app"
               ];
             };
-            
+
             controlcenter = {
               BatteryShowPercentage = true;
               Sound = true;
             };
-
-            loginwindow.GuestEnabled = false;
 
             menuExtraClock = {
               ShowSeconds = true;
@@ -72,6 +72,19 @@
               ShowDayOfWeek = false;
               Show24Hour = true;
             };
+
+            finder = {
+              _FXShowPosixPathInTitle = true;   
+              AppleShowAllExtensions = true;
+              AppleShowAllFiles = true;
+              ShowPathbar = true;
+              ShowStatusBar = false;
+            };
+
+            loginwindow.GuestEnabled = false;
+            NSGlobalDomain.AppleInterfaceStyle = "Dark";
+            NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
+            NSGlobalDomain.KeyRepeat = 2;
           };
 
           # Necessary for using flakes on this system.
