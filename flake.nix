@@ -43,9 +43,9 @@
 
           programs.zsh.enable = true;
 
-          system.primaryUser = "pseudomac";
+          system.primaryUser = "pseudogode";
 
-          programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_pseudomac-host\n  IdentitiesOnly yes";
+          programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_macpcpc_host\n  IdentitiesOnly yes";
 
           system.keyboard.enableKeyMapping = true;
           system.keyboard.nonUS.remapTilde = true;
@@ -55,6 +55,12 @@
             showhidden = true;
             tilesize = 42;
           };
+
+          system.defaults.dock.persistent-apps = [
+            "/Applications/Nix Apps/Brave Browser.app"
+            "/Applications/Nix Apps/Alacritty.app"
+            "/Applications/Nix Apps/AppFlowy.app"
+          ];
 
           system.defaults.controlcenter = {
             BatteryShowPercentage = true;
@@ -100,8 +106,8 @@
     in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#RJs-MacBook-Pro
-      darwinConfigurations."RJs-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      # $ darwin-rebuild build --flake .#macpcpc
+      darwinConfigurations.macpcpc = nix-darwin.lib.darwinSystem {
         modules = [ configuration ];
       };
     };
