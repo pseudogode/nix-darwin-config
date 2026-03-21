@@ -47,33 +47,36 @@
 
           programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_macpcpc_host\n  IdentitiesOnly yes";
 
-          system.keyboard.enableKeyMapping = true;
-          system.keyboard.nonUS.remapTilde = true;
-
-          system.defaults.dock = {
-            autohide = true;
-            showhidden = true;
-            tilesize = 42;
+          system.keyboard = {
+            enableKeyMapping = true;
+            nonUS.remapTilde = false;
           };
 
-          system.defaults.dock.persistent-apps = [
-            "/Applications/Nix Apps/Brave Browser.app"
-            "/Applications/Nix Apps/Alacritty.app"
-            "/Applications/Nix Apps/AppFlowy.app"
-          ];
+          system.defaults = {
+            dock = {
+              autohide = true;
+              showhidden = true;
+              tilesize = 42;
+              persistent-apps = [
+                "/Applications/Nix Apps/Brave Browser.app"
+                "/Applications/Nix Apps/Alacritty.app"
+                "/Applications/Nix Apps/AppFlowy.app"
+              ];
+            };
 
-          system.defaults.controlcenter = {
-            BatteryShowPercentage = true;
-            Sound = true;
-          };
+            controlcenter = {
+              BatteryShowPercentage = true;
+              Sound = true;
+            };
 
-          system.defaults.loginwindow.GuestEnabled = false;
-
-          system.defaults.menuExtraClock = {
-            ShowSeconds = true;
-            ShowDate = 2;
-            ShowDayOfWeek = false;
-            Show24Hour = true;
+            loginwindow.GuestEnabled = false;
+            
+            menuExtraClock = {
+              ShowSeconds = true;
+              ShowDate = 2;
+              ShowDayOfWeek = false;
+              Show24Hour = true;
+            };
           };
 
           # Necessary for using flakes on this system.
