@@ -47,11 +47,6 @@
 
           programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_macpcpc_host\n  IdentitiesOnly yes";
 
-          system.keyboard = {
-            enableKeyMapping = true;
-            nonUS.remapTilde = false;
-          };
-
           system.defaults = {
             dock = {
               autohide = true;
@@ -63,14 +58,14 @@
                 "/Applications/Nix Apps/AppFlowy.app"
               ];
             };
-
+            
             controlcenter = {
               BatteryShowPercentage = true;
               Sound = true;
             };
 
             loginwindow.GuestEnabled = false;
-            
+
             menuExtraClock = {
               ShowSeconds = true;
               ShowDate = 2;
