@@ -40,15 +40,64 @@
             vlc-bin
             slack
           ];
+          
+          # TODO: Test and enable/delete
+          # environment.shellAliases = {
+          #   podshell = "podman exec -it";
+          # };
 
-          programs.zsh.enable = true;
+          programs.zsh = {
+            # Common options (both platforms)
+            enable = true;
+            enableCompletion = true;
+
+            promptInit = ''
+              autoload -U promptinit
+              promptinit
+              prompt off
+
+              function git_branch_name() {
+                branch=$(git symbolic-ref HEAD --short 2>/dev/null)
+                if [ ! -z "$branch" ]; then
+                  echo -n " [%F{red}$branch%f]"
+                fi
+              }
+
+              # Omit username, print hostname + '$' with red when root, otherwise green:
+              # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
+              prompt='[%(!.%F{red}.%F{green})%m%f:%F{blue}%~%f]$(git_branch_name) %(!.%F{red}#%f.$) '
+
+              # See: https://zsh.sourceforge.io/Doc/Release/Options.html#Prompting
+              setopt prompt_cr    # print carriage return before printing a prompt in line editor
+              setopt prompt_sp    # attempt to preserve partial lines using ansi control chars
+              setopt prompt_subst # perform {parameter, command, arithmetic} expansion in prompts
+
+              export PROMPT_EOL_MARK="" # don't show end-of-line marker on partial lines
+            '';
+
+            interactiveShellInit = ''
+              # Enable bash completion compatibility
+              autoload -U bashcompinit && bashcompinit
+
+              # Disable ^S and ^Q flow control
+              unsetopt FLOW_CONTROL
+
+              # Copy-paste
+              bindkey '^U' kill-whole-line
+              bindkey '^Y' yanke
+
+              # Syntax highlighting (must be sourced last)
+              ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+              source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+            '';
+          };
 
           system.primaryUser = "pseudogode";
 
           programs.ssh.extraConfig = "Host github\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_ed25519_macpcpc_host\n  IdentitiesOnly yes";
-          
+
           system.startup.chime = false;
-          
+
           system.defaults = {
             dock = {
               autohide = true;
@@ -74,7 +123,7 @@
             };
 
             finder = {
-              _FXShowPosixPathInTitle = true;   
+              _FXShowPosixPathInTitle = true;
               AppleShowAllExtensions = true;
               AppleShowAllFiles = true;
               ShowPathbar = true;
