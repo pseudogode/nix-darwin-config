@@ -39,6 +39,7 @@
             appflowy
             vlc-bin
             slack
+            firefox
           ];
           
           # TODO: Test and enable/delete
